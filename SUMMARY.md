@@ -11,8 +11,8 @@
   thấp hơn ước lượng $14,33–$25,08; pilot N=20 không thay thế formal conclusion.
 - Primary end-to-end Jev-vs-LLM hypothesis được hỗ trợ ở corrected Look 2 trên
   70 fresh paired queries; kết luận không mở rộng sang routing optimality/ECE.
-- Giai đoạn hiện tại: source snapshot đã commit trên `main`; đang chờ đăng nhập
-  GitHub để tạo private repository và push.
+- Giai đoạn hiện tại: source snapshot đã được push lên private GitHub repository
+  `wimaniac/adaptive-rag-router-typesafe-jev` trên `main`.
 
 ## 2. Công việc đã hoàn thành
 
@@ -101,6 +101,8 @@
 - Git stage audit: 121 file được chọn; không có `.env`, dataset, Qdrant index,
   model cache, benchmark artifacts hoặc credential pattern trong staged snapshot.
 - Initial commit `9b9051c` chứa đúng 121 file đã audit; local tree sạch.
+- GitHub private repository đã tạo; `origin/main` khớp local `main` tại commit
+  `60dbf38` sau lần push đầu tiên. Remote tree có 121 file.
 - Baseline `budget-pilot-2-79`: 60/60 adaptive, cost tổng run $0,645933.
 - Live `budget-live-20`: 60/60, 40 Tavily credits, cost $0,299152.
 - Repeat `budget-repeat-20`: 60/60, cost $0,359934.
@@ -123,15 +125,12 @@
 - Qdrant local cảnh báo >20.000 points; đúng chức năng nhưng latency kém server.
 - CRAG license CC BY-NC 4.0; mục đích sử dụng phải phù hợp.
 - Tavily monthly usage ngoài repository không nằm trong ledger run.
-- GitHub connector không có thao tác tạo repository, còn `gh auth status` cho
-  biết CLI chưa đăng nhập. Trang GitHub yêu cầu user sign in trước khi tạo repo.
+- Dataset, Qdrant index và confirmatory artifacts không được push; người clone
+  repository cần chuẩn bị dữ liệu và tạo lại artifacts theo README.
 
 ## 8. Bước tiếp theo cụ thể
 
-1. Sau khi GitHub sign in, tạo private repository
-   `wimaniac/adaptive-rag-router-typesafe-jev`, push `main` và xác minh remote
-   tree chỉ chứa source snapshot đã audit.
-2. Giữ manifest, frozen calibration và confirmatory artifacts bất biến để tái
+1. Giữ manifest, frozen calibration và confirmatory artifacts bất biến để tái
    lập kết luận trong phạm vi benchmark snapshot hiện tại.
-3. Nếu cần claim rộng hơn: bổ sung ngân sách cho formal N=600, Tavily live100
+2. Nếu cần claim rộng hơn: bổ sung ngân sách cho formal N=600, Tavily live100
    và human audit100; primary confirmatory conclusion không phụ thuộc các bước đó.
