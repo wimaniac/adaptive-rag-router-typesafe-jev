@@ -1,0 +1,32 @@
+# Cấu hình smoke benchmark end-to-end trên ba mẫu dev, không gọi Tavily.
+
+[run]
+name = "smoke-dev-3"
+seed = 20260921
+split = "dev"
+max_samples = 3
+dev_size = 200
+calibration_size = 200
+test_size = 600
+bootstrap_iterations = 200
+max_concurrency = 2
+checkpoint_every = 1
+
+[datasets]
+ragrouter_path = "data/raw/ragrouter/questions.jsonl"
+ragrouter_sample_size = 700
+crag_path = "data/raw/crag/questions.jsonl"
+crag_sample_size = 300
+mock_web_path = "data/raw/crag/mock_web.jsonl"
+
+[retrieval]
+vector_top_k = 12
+evidence_limit = 8
+max_repair_rounds = 2
+web_provider = "mock"
+
+[generation]
+max_output_tokens = 512
+
+[counterfactual]
+quality_floor = 0.70

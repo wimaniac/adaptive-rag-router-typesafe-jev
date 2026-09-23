@@ -1,0 +1,18 @@
+# Cấu hình Tavily live subset; mọi giá trị đều nằm dưới free-tier guardrail.
+
+[run]
+name = "tavily-live-100"
+seed = 20260921
+sample_size = 100
+
+[retrieval]
+web_provider = "tavily"
+search_depth = "basic"
+max_results = 5
+max_repair_rounds = 2
+
+[tavily]
+requests_per_minute = 90
+max_concurrency = 4
+credit_budget = 350
+max_retries = 4

@@ -1,0 +1,72 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "adaptive-rag-router"
+version = "0.1.0"
+description = "Adaptive RAG Router dùng TypeSafe Jev làm decision engine có xác suất."
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+license = { text = "Proprietary" }
+authors = [{ name = "Adaptive RAG Router contributors" }]
+dependencies = [
+  "httpx>=0.28",
+  "openai>=1.60",
+  "pandas>=2.2",
+  "pyarrow>=18.0",
+  "pydantic>=2.10",
+  "pydantic-settings>=2.7",
+  "qdrant-client>=1.13",
+  "sentence-transformers>=3.4",
+  "transformers>=4.48",
+  "typer>=0.15",
+  "typesafe-sdk>=0.7",
+]
+
+[project.optional-dependencies]
+dev = [
+  "mypy>=1.14",
+  "pytest>=8.3",
+  "pytest-asyncio>=0.25",
+  "pytest-cov>=6.0",
+  "ruff>=0.9",
+]
+
+[project.scripts]
+rag-router = "adaptive_rag_router.interfaces.cli:app"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/adaptive_rag_router"]
+
+[tool.pytest.ini_options]
+addopts = "-ra --strict-markers --strict-config"
+testpaths = ["tests"]
+asyncio_mode = "auto"
+markers = [
+  "integration: gọi provider thật và cần API key",
+  "slow: test tải model hoặc chạy benchmark dài",
+]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "ASYNC", "RUF"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+packages = ["adaptive_rag_router"]
+warn_unreachable = true
+
+[[tool.mypy.overrides]]
+module = [
+  "qdrant_client.*",
+  "sentence_transformers.*",
+  "typesafe_sdk.*",
+]
+ignore_missing_imports = true

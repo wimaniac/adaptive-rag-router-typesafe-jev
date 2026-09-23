@@ -1,0 +1,32 @@
+# Tavily live pilot 20 query; dùng calibration artifact của budget pilot.
+
+[run]
+name = "budget-live-20"
+seed = 20260921
+sample_size = 20
+bootstrap_iterations = 1000
+checkpoint_every = 1
+
+[datasets]
+formal_config = "configs/budget-pilot.toml"
+
+[retrieval]
+web_provider = "tavily"
+search_depth = "basic"
+max_results = 5
+max_repair_rounds = 2
+
+[tavily]
+requests_per_minute = 90
+max_concurrency = 1
+credit_budget = 180
+max_retries = 4
+
+[cost_budget]
+limit_usd = 1.50
+provider_ledger_path = "artifacts/benchmarks/provider-cost-budget.json"
+deepseek_limit_usd = 2.79
+jev_limit_usd = 3.00
+counterfactual_reserve_usd = 0.25
+adaptive_reserve_usd = 0.50
+jev_reserve_usd = 0.05

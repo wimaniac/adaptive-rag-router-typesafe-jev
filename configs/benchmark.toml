@@ -1,0 +1,37 @@
+# Cấu hình benchmark formal offline; không gọi Tavily live.
+
+[run]
+name = "formal-1000"
+seed = 20260921
+dev_size = 200
+calibration_size = 200
+test_size = 600
+bootstrap_iterations = 10000
+
+[datasets]
+ragrouter_path = "data/raw/ragrouter/questions.jsonl"
+ragrouter_sample_size = 700
+crag_path = "data/raw/crag/questions.jsonl"
+crag_sample_size = 300
+mock_web_path = "data/raw/crag/mock_web.jsonl"
+
+[retrieval]
+vector_top_k = 12
+evidence_limit = 8
+max_repair_rounds = 2
+web_provider = "mock"
+
+[generation]
+max_output_tokens = 1024
+
+[counterfactual]
+quality_floor = 0.70
+
+[acceptance]
+quality_non_inferiority_margin = 0.02
+minimum_cost_reduction = 0.20
+minimum_p50_latency_reduction = 0.15
+maximum_p95_latency_regression = 0.05
+critical_recall = 0.90
+maximum_ece = 0.08
+maximum_unhandled_error_rate = 0.005

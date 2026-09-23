@@ -1,0 +1,65 @@
+# Confirmatory study ngân sách thấp: 100 query mới, paired Jev-vs-LLM.
+
+[run]
+name = "confirmatory-jev-vs-llm-100"
+seed = 20260921
+split = "test"
+dev_size = 200
+calibration_size = 200
+test_size = 600
+max_samples = 100
+stratified_subset = true
+publish_acceptance = false
+routers = ["jev", "llm"]
+bootstrap_iterations = 10000
+max_concurrency = 1
+checkpoint_every = 1
+
+[datasets]
+ragrouter_path = "data/raw/ragrouter/questions.jsonl"
+ragrouter_sample_size = 700
+crag_path = "data/raw/crag/questions.jsonl"
+crag_sample_size = 300
+mock_web_path = "data/raw/crag/mock_web.jsonl"
+
+[retrieval]
+vector_top_k = 12
+evidence_limit = 8
+max_repair_rounds = 2
+web_provider = "mock"
+
+[generation]
+max_output_tokens = 512
+
+[confirmatory]
+enabled = true
+looks = [40, 70, 100]
+familywise_alpha = 0.05
+calibration_source_run_id = "budget-pilot-2-79"
+excluded_run_ids = [
+  "budget-pilot-2-79",
+  "budget-live-20",
+  "budget-repeat-20",
+  "budget-ablation-no-context-gate-20",
+  "budget-ablation-no-context-gate-20-v2",
+  "budget-ablation-no-repair-20",
+  "budget-ablation-no-strong-fallback-20",
+]
+
+[cost_budget]
+limit_usd = 0.95
+provider_ledger_path = "artifacts/benchmarks/provider-cost-budget.json"
+deepseek_limit_usd = 2.79
+jev_limit_usd = 3.00
+counterfactual_reserve_usd = 0.05
+adaptive_reserve_usd = 0.03
+jev_reserve_usd = 0.005
+
+[acceptance]
+quality_non_inferiority_margin = 0.02
+minimum_cost_reduction = 0.20
+minimum_p50_latency_reduction = 0.15
+maximum_p95_latency_regression = 0.05
+critical_recall = 0.90
+maximum_ece = 0.08
+maximum_unhandled_error_rate = 0.005
